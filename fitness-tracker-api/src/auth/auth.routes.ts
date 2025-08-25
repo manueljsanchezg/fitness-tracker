@@ -1,6 +1,6 @@
-import { FastifyInstance } from "fastify";
-import { loginUser, refreshToken, registerUser } from "./auth.controller";
-import { loginUserSchema, registerUserSchema } from "./auth.schemas";
+import { FastifyInstance } from "fastify"
+import { loginUser, refreshToken, registerUser } from "./auth.controller"
+import { loginUserSchema, registerUserSchema } from "./auth.schemas"
 
 export async function authRoutes(app: FastifyInstance) {
 

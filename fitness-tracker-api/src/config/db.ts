@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { MONGO_URI } from "./env";
+import mongoose from "mongoose"
+import { MONGO_URI } from "./env"
 
 export const connectDB = async () => {
     if (!MONGO_URI) {
