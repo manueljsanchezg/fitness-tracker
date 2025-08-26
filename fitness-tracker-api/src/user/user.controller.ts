@@ -8,9 +8,9 @@ import { UpdateDTO } from "./user.dtos"
 export const getUserProfile = async (request: FastifyRequest, reply: FastifyReply) => {
     try {
 
-        const { id } = request.user as { id: Types.ObjectId }
+        const { userId } = request.user as { userId: Types.ObjectId }
 
-        const user = await UserModel.findById(id, 'name surname email')
+        const user = await UserModel.findById(userId, 'name surname email')
 
         if (!user) return reply.status(404).send({ message: "User not found" })
 
@@ -37,11 +37,11 @@ export const getAllUsers = async (request: FastifyRequest, reply: FastifyReply) 
 export const updateProfile = async (request: FastifyRequest, reply: FastifyReply) => {
     try {
 
-        const { id } = request.user as { id: Types.ObjectId }
+        const { userId } = request.user as { userId: Types.ObjectId }
 
         const { name, surname, password } = request.body as UpdateDTO
 
-        const user = await UserModel.findById(id)
+        const user = await UserModel.findById(userId)
 
         if (!user) return reply.status(404).send({ message: "User not found" })
 

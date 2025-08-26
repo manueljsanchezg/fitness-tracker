@@ -12,7 +12,18 @@ const createRoutineBody = S.object()
     .prop('exercises', S.array().items(S.ref('#exercise')).required())
     .definition('exercise', exerciseSchema)
 
+const updateRoutineParams = S.object()
+    .prop('routineId', S.string().required())
 
 export const createRoutineSchema = {
     body: createRoutineBody
+}
+
+export const updateRoutineSchema = {
+    body: createRoutineBody,
+    params: updateRoutineParams
+}
+
+export const deleteRoutineSchema = {
+    params: updateRoutineParams
 }

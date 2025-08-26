@@ -16,9 +16,9 @@ export interface IRoutineExercise {
 const routineExerciseSchema = new Schema<IRoutineExercise>(
     {
         exercise: { type: Schema.Types.ObjectId, ref: "Exercise", required: true },
-        sets: { type: Number, required: true },
-        reps: { type: Number, required: true },
-        duration: { type: Number }
+        sets: { type: Number, required: true, trim: true },
+        reps: { type: Number, required: true, trim: true },
+        duration: { type: Number, trim: true }
     }, 
     { _id: false })
 

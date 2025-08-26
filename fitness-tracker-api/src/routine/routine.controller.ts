@@ -26,7 +26,7 @@ export const getRoutine = async (request: FastifyRequest, reply: FastifyReply) =
 
         const routine = await RoutineModel.findById(routineId)
 
-        if(!routine) return reply.status(404).send({ message: "Exercise not found"})
+        //if(!routine) return reply.status(404).send({ message: "Exercise not found"})
 
         return reply.status(200).send(routine)
     } catch (error) {
@@ -66,9 +66,10 @@ export const updateRoutine = async (request: FastifyRequest, reply: FastifyReply
         if(name) data.name = name
         if(exercises) data.exercises = exercises
 
-        const routine = await RoutineModel.findByIdAndUpdate(routineId, data)
+        //const routine = 
+        await RoutineModel.findByIdAndUpdate(routineId, data)
 
-        if(!routine) return reply.status(404).send({ message: "Exercise not found"})
+        //if(!routine) return reply.status(404).send({ message: "Exercise not found"})
 
         return reply.status(200).send({message: "Exercise successfully updated"})
     } catch (error) {
@@ -81,9 +82,10 @@ export const deleteRoutine = async (request: FastifyRequest, reply: FastifyReply
 
         const { routineId } = request.params as { routineId: string }
 
-        const routine = await RoutineModel.findByIdAndDelete(routineId)
+        // const routine = 
+        await RoutineModel.findByIdAndDelete(routineId)
 
-        if(!routine) return reply.status(404).send({ message: "Exercise not found"})
+        //if(!routine) return reply.status(404).send({ message: "Exercise not found"})
 
         return reply.status(200).send({message: "Exercise successfully updated"})
     } catch (error) {
