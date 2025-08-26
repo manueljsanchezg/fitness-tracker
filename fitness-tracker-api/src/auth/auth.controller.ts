@@ -8,7 +8,7 @@ import { RefreshTokenModel } from "../user/RefreshTokenModel"
 
 export const registerUser = async (request: FastifyRequest, reply: FastifyReply) => {
     try {
-        const { name, surname, email, password, role } = request.body as RegisterDTO
+        const { name, surname, email, password } = request.body as RegisterDTO
 
         const existingUser = await UserModel.findOne({ email })
 
@@ -21,7 +21,7 @@ export const registerUser = async (request: FastifyRequest, reply: FastifyReply)
             surname,
             email,
             password: hashedPassword,
-            role
+            role: "user"
         })
 
         await newUser.save()
