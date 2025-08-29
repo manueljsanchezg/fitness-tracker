@@ -1,6 +1,7 @@
 import fastify, { FastifyReply, FastifyRequest } from "fastify"
 import fastifyJwt from "@fastify/jwt"
 import fastifyCookie from "@fastify/cookie"
+import fastifyCors from "@fastify/cors"
 import { SECRET_KEY } from "./config/env"
 import { authRoutes, } from "./auth/auth.routes"
 import { UserModel } from "./user/UserModel"
@@ -21,6 +22,11 @@ app.register(fastifyJwt, {
   }
 })
 
+app.register(fastifyCors, {
+  origin: "http://localhost:5173",
+  credentials: true
+})
+
 const publicRoutes = [
   "/api/v1/auth/login",
   "/api/v1/auth/register",
@@ -38,16 +44,20 @@ app.addHook("onRequest", async (request, reply) => {
 
     const decoded = await request.jwtVerify<JwtPayload>()
 
+    console.log(decoded)
+
     const user = await UserModel.findOne({ email: decoded.email })
+
+    console.log(user)
 
     if(!user) return reply.status(404).send({ message: "User not found" })
 
     request.user = {
-      id: user.id,
+      userId: user.id,
       role: user.role
     }
   } catch (error) {
-    return reply.status(401).send(error)
+    return reply.status(401).send({ message: "Unauthorized" })
   }
 })
 

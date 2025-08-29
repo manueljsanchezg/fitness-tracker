@@ -77,7 +77,7 @@ export const loginUser = async (request: FastifyRequest, reply: FastifyReply) =>
             }
         )
 
-        return reply.status(200).send({ message: "User logged succesfully" })
+        return reply.status(200).send({ message: "User logged succesfully", email: user.email, role: user.role, expiresIn: 900 })
     } catch (error) {
         return reply.status(500).send(error)
     }
@@ -108,11 +108,25 @@ export const refreshToken = async (request: FastifyRequest, reply: FastifyReply)
             }
         )
 
-        return reply.status(200).send({ message: "Access token refreshed" })
-
+        return reply.status(200).send({ message: "Access token refreshed", email: user.email, role: user.role, expiresIn: 900 })
     } catch (err) {
         await RefreshTokenModel.deleteOne({ token })
         return reply.status(401).send({ message: "Invalid refresh token" })
     }
 }
 
+export const validateRequest = async (request: FastifyRequest, reply: FastifyReply) => {
+    try {
+
+        const { role } = request.user as { role: string }
+        const { roles } = request.body as { roles?: string[] }
+
+        if (roles && !roles.includes(role)) {
+            return reply.status(403).send({ message: "Invalid role" })
+        }
+
+        return reply.send({ success: true })
+    } catch (error) {
+        return reply.status(500).send({ message: "Server error" })
+    }
+}

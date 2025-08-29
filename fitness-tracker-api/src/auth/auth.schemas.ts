@@ -10,7 +10,6 @@ const registerUserBody = S.object()
     .prop('surname', S.string().required())
     .prop('email', S.string().format(S.FORMATS.EMAIL).required())
     .prop('password', S.string().required())
-    .prop('role', S.string().required().enum(Object.values(ROLES)))
 
 export const registerUserSchema = {
     body: registerUserBody
