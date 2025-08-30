@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify"
 import { checkRole } from "../auth/auth.middlewares"
-import { createExercise, deleteExercise, getAllExercise, updateExercise } from "./exercise.controller"
+import { createExercise, deleteExercise, getAllExercise, getExercise, updateExercise } from "./exercise.controller"
 import { createExerciseSchema, deleteExerciseSchema, updateExerciseSchema } from "./exercise.schema"
 import { ExerciseModel } from "./exerciseModel"
 import { checkEntiyExists } from "../utils/entity.middlewares"
@@ -14,6 +14,15 @@ export async function exerciseRoutes(app: FastifyInstance) {
             ]
         },
         getAllExercise)
+
+    app.get("/:exerciseId",
+        {
+            preHandler: [
+                checkRole("admin"),
+                checkEntiyExists(ExerciseModel, "exerciseId")
+            ]
+        },
+        getExercise)
 
     app.post("/",
         {

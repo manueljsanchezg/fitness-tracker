@@ -1,9 +1,7 @@
 import axios from "axios"
-import type { LoginUser } from "../views/LoginView.vue"
-import type { RegisterUser } from "../views/RegisterView.vue"
+import type { LoginUser } from "../views/general/LoginView.vue"
+import type { RegisterUser } from "../views/general/RegisterView.vue"
 import { server } from "./api"
-import { success } from "zod"
-import { da } from "zod/locales"
 
 export const registerUser = async (data: RegisterUser) => {
     try {

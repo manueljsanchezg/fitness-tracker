@@ -1,7 +1,6 @@
 <template>
-    <p>Mis panel de admin</p>
+    <p>Mis rutinas</p>
 </template>
 
 <script setup lang="ts">
-
 </script>

@@ -11,7 +11,22 @@ export const getAllExercise = async (request: FastifyRequest, reply: FastifyRepl
             .limit(Number(limit))
             .skip(Number(skip))
 
-        return reply.status(200).send(exercises)
+        const totalExercises = await ExerciseModel.countDocuments() 
+
+        return reply.status(200).send({ exercises, totalExercises})
+    } catch (error) {
+        return reply.status(500).send(error)
+    }
+}
+
+export const getExercise = async (request: FastifyRequest, reply: FastifyReply) => {
+    try {        
+
+        const { exerciseId } = request.params as { exerciseId: string }
+
+        const exercise = await ExerciseModel.findById(exerciseId)
+
+        return reply.status(200).send(exercise)
     } catch (error) {
         return reply.status(500).send(error)
     }

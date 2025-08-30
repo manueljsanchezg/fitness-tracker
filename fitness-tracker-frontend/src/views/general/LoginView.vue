@@ -29,10 +29,10 @@
 <script setup lang="ts">
 import { computed, ref, watchEffect } from 'vue'
 import z from 'zod'
-import { loginUser } from '../api/auth'
-import { router } from '../router'
-import { useAuthStore } from '../store/authStore'
-import { scheduleTokenRefresh } from '../utils/utils'
+import { loginUser } from '../../api/auth'
+import { router } from '../../router'
+import { useAuthStore } from '../../store/authStore'
+import { scheduleTokenRefresh } from '../../utils/utils'
 
 const authStore = useAuthStore()
 
@@ -124,6 +124,5 @@ h1 {
 .server-error {
   font-size: 14px
 }
-
 
 </style>

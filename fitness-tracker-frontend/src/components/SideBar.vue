@@ -28,7 +28,7 @@
               tag="router-link"
               to="/my-profile"
               icon="account"
-              label="My Profile"
+              label="Perfil"
             />
           </b-menu-list>
 
@@ -38,24 +38,25 @@
               tag="router-link"
               to="/routines"
               icon="calendar"
-              label="Routines"
+              label="Rutinas"
             />
           </b-menu-list>
 
           <b-menu-list v-else-if="authStore.role === 'admin'" label="Admin">
             <b-menu-item
               tag="router-link"
-              to="/"
-              icon="home"
-              label="Home"
+              to="/users"
+              icon="account-tie"
+              label="Usuarios"
             />
             <b-menu-item
               tag="router-link"
-              to="/admin-panel"
-              icon="settings"
-              label="Admin Panel"
+              to="/exercises"
+              icon="weight-lifter"
+              label="Ejercicios"
             />
           </b-menu-list>
+          
         </b-menu>
       </div>
     </b-sidebar>

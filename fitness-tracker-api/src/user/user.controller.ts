@@ -28,7 +28,9 @@ export const getAllUsers = async (request: FastifyRequest, reply: FastifyReply) 
             .limit(Number(limit))
             .skip(Number(skip))
 
-        return reply.status(200).send(users)
+        const totalUsers = await UserModel.countDocuments()
+
+        return reply.status(200).send({ users, totalUsers})
     } catch (error) {
         return reply.status(500).send(error)
     }

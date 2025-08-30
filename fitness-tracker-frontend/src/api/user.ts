@@ -20,3 +20,21 @@ export const getMyProfile = async () => {
         return { success: false, error: 'Unexpected error' }
     }
 }
+
+export const getAllUsers = async (limit: number, skip: number) => {
+    try {
+        const response = await server.get(`/users?limit=${limit}&skip=${skip}`)
+        return { success: true, data: response.data }
+    } catch (error) {
+       if (axios.isAxiosError(error)) {
+            const status = error.response?.status
+            switch (status) {
+                case 401:
+                    return { success: false, errorCode: 401, error: 'Unauthorized' }
+                default:
+                    return { success: false, error: 'Server error' }
+            }
+        }
+        return { success: false, error: 'Unexpected error' }
+    }
+}

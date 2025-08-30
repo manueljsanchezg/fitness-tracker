@@ -7,8 +7,6 @@ export const checkEntiyExists = <T>(model: Model<T>, objectId: string) =>
 
             const id = (request.params as any)[objectId]
 
-            console.log(id)
-
             const entity = await model.findById(id)
 
             if (!entity) return reply.status(404).send({ message: "Entity not found" })

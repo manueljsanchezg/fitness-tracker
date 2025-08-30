@@ -2,33 +2,33 @@
   <section class="profile">
     <h3 v-if="isLoading" class="loading">Cargando...</h3>
 
-    <b-card v-else class="profile-card" :header="profileData.name + ' ' + profileData.surname">
+    <div v-else class="profile-card">
       <section class="profile-info">
-        <p class="welcome">👋 Hola, bienvenido a tu perfil</p>
+        <p class="welcome">Hola, bienvenido a tu perfil</p>
 
-        <b-field label="Nombre">
-          <b-icon icon="account" size="is-small"></b-icon>
-          <span>{{ profileData.name }}</span>
-        </b-field>
+        <div class="profile-field">
+          <span class="label">Nombre:</span>
+          <span class="value">{{ profileData.name }}</span>
+        </div>
 
-        <b-field label="Apellido">
-          <b-icon icon="account-circle" size="is-small"></b-icon>
-          <span>{{ profileData.surname }}</span>
-        </b-field>
+        <div class="profile-field">
+          <span class="label">Apellido:</span>
+          <span class="value">{{ profileData.surname }}</span>
+        </div>
 
-        <b-field label="Email">
-          <b-icon icon="email" size="is-small"></b-icon>
-          <span>{{ profileData.email }}</span>
-        </b-field>
+        <div class="profile-field">
+          <span class="label">Email:</span>
+          <span class="value">{{ profileData.email }}</span>
+        </div>
       </section>
-    </b-card>
+    </div>
   </section>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { getMyProfile } from '../api/user';
-import { router } from '../router';
+import { getMyProfile } from '../../api/user';
+import { router } from '../../router';
 
 interface ProfileData {
   name: string,
@@ -56,12 +56,10 @@ onMounted(async () => {
           return router.push('/unauthorized')
       }
     } else {
-      profileData.value.name = data.name
-      profileData.value.surname = data.surname
-      profileData.value.email = data.email
+      profileData.value = data
     }
-  } catch (error) {
-    return router.push('/not-found')
+  } catch {
+    router.push('/not-found')
   } finally {
     isLoading.value = false
   }
@@ -73,16 +71,36 @@ onMounted(async () => {
   display: flex;
   justify-content: center;
   margin-top: 2rem;
+  padding: 2em;
 }
 
 .profile-card {
   max-width: 500px;
   width: 100%;
   border-radius: 12px;
+  padding: 1rem;
+  background: #2c2c2c;
+  color: #f0f0f0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .profile-info {
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.profile-field {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.value {
+  color: #d3d3d3;
 }
 
 .loading {
@@ -94,6 +112,6 @@ onMounted(async () => {
 .welcome {
   font-weight: bold;
   margin-bottom: 1rem;
+  text-align: center;
 }
 </style>
-

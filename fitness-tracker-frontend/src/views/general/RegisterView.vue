@@ -50,8 +50,8 @@
 <script setup lang="ts">
 import { computed, ref, watchEffect } from 'vue'
 import z from 'zod'
-import { registerUser } from '../api/auth'
-import { router } from '../router'
+import { registerUser } from '../../api/auth'
+import { router } from '../../router'
 
 const registerUserSchema = z.object({
   name: z.string().min(4, "Too short!").max(30, "Too long!").trim(),

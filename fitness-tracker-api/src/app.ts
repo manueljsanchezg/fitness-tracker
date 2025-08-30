@@ -24,7 +24,8 @@ app.register(fastifyJwt, {
 
 app.register(fastifyCors, {
   origin: "http://localhost:5173",
-  credentials: true
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]
 })
 
 const publicRoutes = [
@@ -44,11 +45,7 @@ app.addHook("onRequest", async (request, reply) => {
 
     const decoded = await request.jwtVerify<JwtPayload>()
 
-    console.log(decoded)
-
     const user = await UserModel.findOne({ email: decoded.email })
-
-    console.log(user)
 
     if(!user) return reply.status(404).send({ message: "User not found" })
 

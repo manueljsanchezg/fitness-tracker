@@ -11,7 +11,6 @@ export function scheduleTokenRefresh(expiresInSeconds: number) {
     refreshTimeout = setTimeout(async () => {
         try {
             const { success, error, data } = await refreshToken()
-            console.log(data)
             if(!success && error) return router.push('/login')
             
             if (data?.expiresIn) scheduleTokenRefresh(data.expiresIn)

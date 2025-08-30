@@ -1,14 +1,17 @@
 import { createMemoryHistory, createRouter } from 'vue-router'
-import RegisterView from './views/RegisterView.vue'
-import LoginView from './views/LoginView.vue'
+import RegisterView from './views/general/RegisterView.vue'
+import LoginView from './views/general/LoginView.vue'
 import { validateRequest } from './api/auth'
-import AdminView from './views/AdminView.vue'
-import RoutinesView from './views/RoutinesView.vue'
-import ForbiddenView from './views/ForbiddenView.vue'
-import HomeView from './views/HomeView.vue'
-import ProfileView from './views/ProfileView.vue'
-import UnauthorizedView from './views/UnauthorizedView.vue'
-import NotFoundView from './views/NotFoundView.vue'
+import RoutinesView from './views/user/RoutinesView.vue'
+import ForbiddenView from './views/general/ForbiddenView.vue'
+import HomeView from './views/general/HomeView.vue'
+import ProfileView from './views/general/ProfileView.vue'
+import UnauthorizedView from './views/general/UnauthorizedView.vue'
+import NotFoundView from './views/general/NotFoundView.vue'
+import UsersView from './views/admin/UsersView.vue'
+import ExercisesView from './views/admin/ExercisesView.vue'
+import ExerciseCreateView from './views/admin/ExerciseCreateView.vue'
+import ExerciseUpdateView from './views/admin/ExerciseUpdateView.vue'
 
 const routes = [
   { path: '/home', component: HomeView },
@@ -16,7 +19,10 @@ const routes = [
   { path: '/register', component: RegisterView, meta: { public: true } },
   { path: '/routines', component: RoutinesView, meta: { roles: ['user'] } },
   { path: '/my-profile', component: ProfileView },
-  { path: '/admin-panel', component: AdminView, meta: { roles: ['admin'] } },
+  { path: '/users', component: UsersView, meta: { roles: ['admin'] } },
+  { path: '/exercises', component: ExercisesView, meta: { roles: ['admin'] } },
+  { path: '/exercises/create', component: ExerciseCreateView, meta: { roles: ['admin'] } },
+  { path: '/exercises/update/:id', component: ExerciseUpdateView, meta: { roles: ['admin'] } },
   { path: '/forbidden', component: ForbiddenView, meta: { public: true } },
   { path: '/unauthorized', component: UnauthorizedView, meta: { public: true } },
   { path: '/not-found', component: NotFoundView, meta: { public: true } },
