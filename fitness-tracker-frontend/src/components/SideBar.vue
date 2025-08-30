@@ -1,38 +1,95 @@
 <template>
-  <Transition name="slide">
-    <section class="side-bar" v-if="isOpen">
-      <b-button type="is-text" size="is-large" @click="closeModal">
-        △
-      </b-button>
+<template>
+  <section>
+    <b-sidebar
+      type="is-"
+      :fullheight="true"
+      :overlay="true"
+      :right="false"
+      v-model="isOpen"
+    >
+      <div class="p-1">
+        <b-button 
+          type="is-text" 
+          size="is-large" 
+          icon-left="close"
+          @click="closeModal"
+          >
+        </b-button>
+        <b-menu>
+          <b-menu-list label="General">
+            <b-menu-item
+              tag="router-link"
+              to="/home"
+              icon="home"
+              label="Home"
+            />
+            <b-menu-item
+              tag="router-link"
+              to="/my-profile"
+              icon="account"
+              label="My Profile"
+            />
+          </b-menu-list>
 
-      <nav v-if="authStore.role = 'user'">
-        <b-navbar-item tag="router-link" to="/">Home</b-navbar-item>
-        <b-navbar-item tag="router-link" to="/routines">Routines</b-navbar-item>
-      </nav>
+          <b-menu-list v-if="authStore.role === 'user'" label="User">
+            
+            <b-menu-item
+              tag="router-link"
+              to="/routines"
+              icon="calendar"
+              label="Routines"
+            />
+          </b-menu-list>
 
-      <nav v-else-if="authStore.role = 'admin'">
-        <b-navbar-item tag="router-link" to="/">Home</b-navbar-item>
-        <b-navbar-item tag="router-link" to="/admin-panel">Admin Panel</b-navbar-item>
-      </nav>
-    </section>
-  </Transition>
+          <b-menu-list v-else-if="authStore.role === 'admin'" label="Admin">
+            <b-menu-item
+              tag="router-link"
+              to="/"
+              icon="home"
+              label="Home"
+            />
+            <b-menu-item
+              tag="router-link"
+              to="/admin-panel"
+              icon="settings"
+              label="Admin Panel"
+            />
+          </b-menu-list>
+        </b-menu>
+      </div>
+    </b-sidebar>
+  </section>
+</template>
 </template>
 
 <script setup lang="ts">
+import { useRoute } from 'vue-router';
 import { useAuthStore } from '../store/authStore';
+import { watch, } from 'vue';
 
 
 const authStore = useAuthStore()
 const isOpen = defineModel()
 
+const route = useRoute()
+
 function closeModal() {
   isOpen.value = false
 }
+
+watch(
+  () => route.fullPath,
+  () => {
+    closeModal()
+  }
+)
 
 
 </script>
 
 <style scoped>
+
 .side-bar {
   width: 150px;
   background-color: #0f172a;
@@ -45,6 +102,14 @@ function closeModal() {
   border-radius: 0 12px 12px 0;
 }
 
+.p-1 {
+  padding: 1em;
+}
+
+::v-deep(.menu-list a.is-active) {
+  background-color: #334155 !important;
+  color: #fff !important;
+}
 
 .slide-enter-active,
 .slide-leave-active {

@@ -5,15 +5,21 @@ import { validateRequest } from './api/auth'
 import AdminView from './views/AdminView.vue'
 import RoutinesView from './views/RoutinesView.vue'
 import ForbiddenView from './views/ForbiddenView.vue'
-import PrivateHomeView from './views/HomeView.vue'
+import HomeView from './views/HomeView.vue'
+import ProfileView from './views/ProfileView.vue'
+import UnauthorizedView from './views/UnauthorizedView.vue'
+import NotFoundView from './views/NotFoundView.vue'
 
 const routes = [
-  { path: '/', component: PrivateHomeView },
+  { path: '/home', component: HomeView },
   { path: '/login', component: LoginView, meta: { public: true } },
   { path: '/register', component: RegisterView, meta: { public: true } },
   { path: '/routines', component: RoutinesView, meta: { roles: ['user'] } },
+  { path: '/my-profile', component: ProfileView },
   { path: '/admin-panel', component: AdminView, meta: { roles: ['admin'] } },
   { path: '/forbidden', component: ForbiddenView, meta: { public: true } },
+  { path: '/unauthorized', component: UnauthorizedView, meta: { public: true } },
+  { path: '/not-found', component: NotFoundView, meta: { public: true } },
 ]
 
 export const router = createRouter({
