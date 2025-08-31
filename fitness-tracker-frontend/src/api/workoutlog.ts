@@ -1,10 +1,12 @@
+
 import axios from "axios"
 import { server } from "./api"
 import type { Routine } from "../views/user/RoutinesCreateView.vue"
+import type { WorkoutLog } from "../views/user/WorkOutLogsCreateView.vue"
 
-export const getAllRoutines = async (limit: number, skip: number) => {
+export const getMyWorkOutLogs = async (limit: number, skip: number) => {
     try {
-        const response = await server.get(`/routines?limit=${limit}&skip=${skip}`)
+        const response = await server.get(`/workoutlogs?limit=${limit}&skip=${skip}`)
         return { success: true, data: response.data }
     } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -20,9 +22,9 @@ export const getAllRoutines = async (limit: number, skip: number) => {
     }
 }
 
-export const getRoutine = async (routineId: string) => {
+export const getWorkoutlog = async (workOutLogId: string) => {
     try {
-        const response = await server.get(`/routines/${routineId}`)
+        const response = await server.get(`/workoutlogs/${workOutLogId}`)
         return { success: true, data: response.data }
     } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -40,9 +42,9 @@ export const getRoutine = async (routineId: string) => {
     }
 }
 
-export const createRoutine = async (data: Routine) => {
+export const createWorkoutLog = async (data: WorkoutLog) => {
     try {
-        const response = await server.post('/routines', data)
+        const response = await server.post('/workoutlogs', data)
         return { success: true, data: response.data }
     } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -60,9 +62,9 @@ export const createRoutine = async (data: Routine) => {
     }
 }
 
-export const updateRoutine = async (routineId: string, data: Routine) => {
+export const updateWorkoutlog = async (workOutLogId: string, data: WorkoutLog) => {
     try {
-        const response = await server.put(`/routines/${routineId}`, data)
+        const response = await server.put(`/workoutlogs/${workOutLogId}`, data)
         return { success: true, data: response.data }
     } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -80,9 +82,9 @@ export const updateRoutine = async (routineId: string, data: Routine) => {
     }
 }
 
-export const deleteRoutine = async (routineId: string) => {
+export const deleteWorkoutlog = async (workOutLogId: string) => {
     try {
-        const response = await server.delete(`/routines/${routineId}`)
+        const response = await server.delete(`/workoutlogs/${workOutLogId}`)
         return { success: true, data: response.data }
     } catch (error) {
         if (axios.isAxiosError(error)) {

@@ -39,12 +39,17 @@
           </b-menu-list>
 
           <b-menu-list v-if="authStore.role === 'user'" label="User">
-            
             <b-menu-item
               tag="router-link"
               to="/routines"
               icon="calendar"
               label="Rutinas"
+            />
+            <b-menu-item
+              tag="router-link"
+              to="/workoutlogs"
+              icon="clipboard-list"
+              label="Historial"
             />
           </b-menu-list>
 

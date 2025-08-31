@@ -1,9 +1,10 @@
 import { FastifyInstance } from "fastify"
 import { checkRole } from "../auth/auth.middlewares"
-import { createWorkOutLog, deleteWorkOutLog, getMyWorkOutLogs, updateWorkOutLog } from "./workoutlog.controller"
+import { createWorkOutLog, deleteWorkOutLog, getMyWorkOutLogs, getWorkOutLog, updateWorkOutLog } from "./workOutLog.controller"
 import { createWorkOutLogSchema, deleteWorkOutLogSchema, updateWorkOutLogSchema } from "./workOutLog.schema"
 import { checkEntiyExists } from "../utils/entity.middlewares"
 import { WorkoutLogModel } from "./workOutLogModel"
+
 
 
 export async function workOutLogRoutes(app: FastifyInstance) {
@@ -15,6 +16,16 @@ export async function workOutLogRoutes(app: FastifyInstance) {
             ]
         },
         getMyWorkOutLogs)
+    
+    app.get("/:workOutLogId",
+        {
+            preHandler: [
+                checkRole("user"),
+                checkEntiyExists(WorkoutLogModel, 'workOutLogId')
+            ]
+
+        },
+        getWorkOutLog)
 
     app.post("/",
         {

@@ -55,7 +55,6 @@
                 <b-button native-type="submit" type="is-primary" :disabled="disabledButton">Actualizar</b-button>
             </div>
         </form>
-        <h3>{{ routineData }}</h3>
     </div>
 </template>
 
@@ -105,7 +104,6 @@ const disabledButton = computed(() => !routineSchema.safeParse(routineData.value
 
 async function fetchRoutine() {
     const { success, data, errorCode } = await getRoutine(id)
-    console.log(data)
     if (success) { 
         routineData.value = {
             name: data.name,

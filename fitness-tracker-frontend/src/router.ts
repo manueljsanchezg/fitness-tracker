@@ -14,6 +14,9 @@ import ExerciseCreateView from './views/admin/ExerciseCreateView.vue'
 import ExerciseUpdateView from './views/admin/ExerciseUpdateView.vue'
 import RoutinesCreateView from './views/user/RoutinesCreateView.vue'
 import RoutinesUpdateView from './views/user/RoutinesUpdateView.vue'
+import WorkOutLogsView from './views/user/WorkOutLogsView.vue'
+import WorkOutLogsCreateView from './views/user/WorkOutLogsCreateView.vue'
+import WorkOutLogsUpdateView from './views/user/WorkOutLogsUpdateView.vue'
 
 const routes = [
   { path: '/home', component: HomeView },
@@ -22,6 +25,9 @@ const routes = [
   { path: '/routines', component: RoutinesView, meta: { roles: ['user'] } },
   { path: '/routines/create', component: RoutinesCreateView, meta: { roles: ['user'] } },
   { path: '/routines/update/:id', component: RoutinesUpdateView, meta: { roles: ['user'] } },
+  { path: '/workoutlogs', component: WorkOutLogsView, meta: { roles: ['user'] } },
+  { path: '/workoutlogs/create', component: WorkOutLogsCreateView, meta: { roles: ['user'] } },
+  { path: '/workoutlogs/update/:id', component: WorkOutLogsUpdateView, meta: { roles: ['user'] } },
   { path: '/my-profile', component: ProfileView },
   { path: '/users', component: UsersView, meta: { roles: ['admin'] } },
   { path: '/exercises', component: ExercisesView },

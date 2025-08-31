@@ -9,16 +9,33 @@ export const getMyWorkOutLogs = async (request: FastifyRequest, reply: FastifyRe
     try {
         const { limit, skip } = getPaginate(request.query)
         
-        const workOutLog = await WorkoutLogModel.find()
+        const workOutLogs = await WorkoutLogModel.find()
+            .populate("exercise", "name")
             .limit(Number(limit))
             .skip(Number(skip))
+
+        const totalWorkOutLogs = await WorkoutLogModel.countDocuments()
+
+        return reply.status(200).send({ workOutLogs, totalWorkOutLogs })
+    } catch (error) {
+        return reply.status(500).send(error)
+    }
+}
+
+export const getWorkOutLog= async (request: FastifyRequest, reply: FastifyReply) => {
+    try {
+        const { workOutLogId } = request.params as { workOutLogId: string }
+
+        const workOutLog = await WorkoutLogModel.findById(workOutLogId)
+                                .populate("exercise", "name")
+
+        //if(!routine) return reply.status(404).send({ message: "Exercise not found"})
 
         return reply.status(200).send(workOutLog)
     } catch (error) {
         return reply.status(500).send(error)
     }
 }
-
 
 export const createWorkOutLog = async (request: FastifyRequest, reply: FastifyReply) => {
     try {
