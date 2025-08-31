@@ -1,9 +1,11 @@
+
 import axios from "axios"
 import { server } from "./api"
+import type { Routine } from "../views/user/RoutinesCreateView.vue"
 
-export const getAllExercises = async (limit?: number, skip?: number) => {
+export const getAllRoutines = async (limit: number, skip: number) => {
     try {
-        const response = await server.get(`/exercises?limit=${limit}&skip=${skip}`)
+        const response = await server.get(`/routines?limit=${limit}&skip=${skip}`)
         return { success: true, data: response.data }
     } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -19,9 +21,9 @@ export const getAllExercises = async (limit?: number, skip?: number) => {
     }
 }
 
-export const getExercise = async (exerciseId: string) => {
+export const getRoutine = async (routineId: string) => {
     try {
-        const response = await server.get(`/exercises/${exerciseId}`)
+        const response = await server.get(`/routines/${routineId}`)
         return { success: true, data: response.data }
     } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -39,16 +41,16 @@ export const getExercise = async (exerciseId: string) => {
     }
 }
 
-export const createExercise = async (data: { name: string, muscles_involved: string[] }) => {
+export const createRoutine = async (data: Routine) => {
     try {
-        const response = await server.post('/exercises', data)
+        const response = await server.post('/routines', data)
         return { success: true, data: response.data }
     } catch (error) {
         if (axios.isAxiosError(error)) {
             const status = error.response?.status
             switch (status) {
                 case 400:
-                    return { success: false, error: 'Invalid exercise data' }
+                    return { success: false, error: 'Invalid routine data' }
                 case 401:
                     return { success: false, errorCode: 401, error: 'Unauthorized' }
                 default:
@@ -59,16 +61,16 @@ export const createExercise = async (data: { name: string, muscles_involved: str
     }
 }
 
-export const updateExercise = async (exerciseId: string, data: { name?: string, muscles_involved?: string[] }) => {
+export const updateRoutine = async (routineId: string, data: Routine) => {
     try {
-        const response = await server.put(`/exercises/${exerciseId}`, data)
+        const response = await server.put(`/routines/${routineId}`, data)
         return { success: true, data: response.data }
     } catch (error) {
         if (axios.isAxiosError(error)) {
             const status = error.response?.status
             switch (status) {
                 case 404:
-                    return { success: false, error: 'Exercise not found' }
+                    return { success: false, error: 'routine not found' }
                 case 401:
                     return { success: false, errorCode: 401, error: 'Unauthorized' }
                 default:
@@ -79,16 +81,16 @@ export const updateExercise = async (exerciseId: string, data: { name?: string, 
     }
 }
 
-export const deleteExercise = async (exerciseId: string) => {
+export const deleteRoutine = async (routineId: string) => {
     try {
-        const response = await server.delete(`/exercises/${exerciseId}`)
+        const response = await server.delete(`/routines/${routineId}`)
         return { success: true, data: response.data }
     } catch (error) {
         if (axios.isAxiosError(error)) {
             const status = error.response?.status
             switch (status) {
                 case 404:
-                    return { success: false, error: 'Exercise not found' }
+                    return { success: false, error: 'routine not found' }
                 case 401:
                     return { success: false, errorCode: 401, error: 'Unauthorized' }
                 default:

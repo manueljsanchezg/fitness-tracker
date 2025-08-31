@@ -10,7 +10,6 @@ export async function exerciseRoutes(app: FastifyInstance) {
     app.get("/",
         {
             preHandler: [
-                checkRole("admin")
             ]
         },
         getAllExercise)

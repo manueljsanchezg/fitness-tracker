@@ -30,6 +30,12 @@
               icon="account"
               label="Perfil"
             />
+            <b-menu-item
+              tag="router-link"
+              to="/exercises"
+              icon="weight-lifter"
+              label="Ejercicios"
+            />
           </b-menu-list>
 
           <b-menu-list v-if="authStore.role === 'user'" label="User">
@@ -48,12 +54,6 @@
               to="/users"
               icon="account-tie"
               label="Usuarios"
-            />
-            <b-menu-item
-              tag="router-link"
-              to="/exercises"
-              icon="weight-lifter"
-              label="Ejercicios"
             />
           </b-menu-list>
           

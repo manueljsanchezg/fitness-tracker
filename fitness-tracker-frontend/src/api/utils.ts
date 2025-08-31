@@ -1,4 +1,4 @@
-import { refreshToken } from "../api/auth"
+import { refreshToken } from "./auth"
 import { router } from "../router"
 
 let refreshTimeout: ReturnType<typeof setTimeout> | null = null

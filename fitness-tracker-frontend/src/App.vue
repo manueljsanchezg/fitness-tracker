@@ -19,7 +19,7 @@ import { computed, onMounted, ref } from 'vue'
 import { refreshToken } from './api/auth'
 import { router } from './router'
 import { useAuthStore } from './store/authStore'
-import { scheduleTokenRefresh } from './utils/utils'
+import { scheduleTokenRefresh } from './api/utils'
 import SideBar from './components/SideBar.vue'
 import { useRoute } from 'vue-router'
 
@@ -30,7 +30,7 @@ const isOpen = ref(false)
 const route = useRoute()
 
 const showSidebar = computed(() => {
-  return !['/login', 'register'].includes(route.path)
+  return !['/login', '/register'].includes(route.path)
 })
 
 onMounted(async () => {

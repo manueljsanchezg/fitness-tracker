@@ -9,6 +9,7 @@ import { Jwt } from "jsonwebtoken"
 import { userRoutes } from "./user/user.routes"
 import { exerciseRoutes } from "./exercise/exercise.routes"
 import { routineRoutes } from "./routine/routine.routes"
+import { workOutLogRoutes } from "./workoutLog/workOutLog.routes"
 
 export const app = fastify({ logger: true })
 
@@ -64,3 +65,4 @@ app.register(authRoutes, { prefix: `${GLOBAL_PREFIX}/auth` })
 app.register(userRoutes, { prefix: `${GLOBAL_PREFIX}/users` })
 app.register(exerciseRoutes, { prefix: `${GLOBAL_PREFIX}/exercises` })
 app.register(routineRoutes, { prefix: `${GLOBAL_PREFIX}/routines` })
+app.register(workOutLogRoutes, { prefix: `${GLOBAL_PREFIX}/workoutlogs` })

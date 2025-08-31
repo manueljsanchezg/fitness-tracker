@@ -33,7 +33,6 @@ import z from 'zod'
 import { getExercise, updateExercise } from '../../api/exercise'
 import { router } from '../../router'
 import { useRoute } from 'vue-router'
-import { da } from 'zod/locales'
 
 const route = useRoute()
 
@@ -73,7 +72,6 @@ const disabledButton = computed(() => {
 
 async function fetchExercise() {
     const { success, data, errorCode } = await getExercise(id)
-    console.log(data)
     if (success) {
         exerciseData.value.name = data.name
         exerciseData.value.muscles_involved = data.muscles_involved
@@ -88,6 +86,8 @@ async function fetchExercise() {
 onMounted(async () => {
     try {
         await fetchExercise()
+    } catch(error) {
+        router.push('/not-found')
     } finally {
         isLoading.value = false
     }

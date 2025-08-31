@@ -2,7 +2,7 @@
   <section class="exercises-section">
     <h1 class="title">Mis Ejercicios</h1>
 
-    <div class="actions">
+    <div v-if="authStore.role === 'admin'" class="actions">
       <b-button type="is-primary" @click="handleCreate">
         Crear
       </b-button>
@@ -17,11 +17,10 @@
         </div>
 
         <div class="card-content">
-          <h2>{{ exercise.name }}</h2>
           <p>Músculos: {{ exercise.muscles_involved.join(', ') }}</p>
         </div>
 
-        <div class="card-actions">
+        <div v-if="authStore.role === 'admin'" class="card-actions">
           <b-button size="is-small" type="is-info" @click="handleUpdate(exercise)">Editar</b-button>
           <b-button size="is-small" type="is-danger" @click="handleDelete(exercise)">Borrar</b-button>
         </div>
@@ -40,8 +39,11 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { deleteExercise, getAllExercises } from '../../api/exercise'
 import { router } from '../../router'
+import { useAuthStore } from '../../store/authStore'
 
-interface Exercise {
+const authStore = useAuthStore()
+
+export interface Exercise {
   _id: string
   name: string
   muscles_involved: string[]
@@ -102,6 +104,8 @@ async function handleDelete(exercise: Exercise) {
 onMounted(async () => {
   try {
     await fetchExercises()
+  } catch(error) {
+    router.push('/not-found')
   } finally {
     isLoading.value = false
   }

@@ -2,13 +2,13 @@
   <div class="login-wrapper">
     <form class="login-form" @submit.prevent="submitForm">
 
-      <h1>Login</h1>
+      <h1>Inicia sesión</h1>
 
       <b-field label="Email" :type="loginError.emailValid.length ? 'is-danger' : ''" :message="loginError.emailValid">
         <b-input v-model="loginUserData.email" maxlength="100"></b-input>
       </b-field>
 
-      <b-field label="Password" :type="loginError.passwordValid.length ? 'is-danger' : ''"
+      <b-field label="Contraseña" :type="loginError.passwordValid.length ? 'is-danger' : ''"
         :message="loginError.passwordValid">
         <b-input v-model="loginUserData.password" type="password" password-reveal maxlength="30"></b-input>
       </b-field>
@@ -17,7 +17,7 @@
         {{ loginError.server[0] }}
       </b-message>
 
-      <RouterLink to="/register">Don't have an account yet?</RouterLink>
+      <RouterLink to="/register">¿No tienes cuenta aún?</RouterLink>
 
       <div class="submit-button-container">
         <b-button native-type="submit" type="is-primary" :disabled="disabledButton">Enviar</b-button>
@@ -32,13 +32,13 @@ import z from 'zod'
 import { loginUser } from '../../api/auth'
 import { router } from '../../router'
 import { useAuthStore } from '../../store/authStore'
-import { scheduleTokenRefresh } from '../../utils/utils'
+import { scheduleTokenRefresh } from '../../api/utils'
 
 const authStore = useAuthStore()
 
 const loginUserSchema = z.object({
-  email: z.email().max(100, "Too long!").trim(),
-  password: z.string().min(1, "Can't be empty").trim()
+  email: z.email("Email inválido").max(100, "Demasiado largo!").trim(),
+  password: z.string().min(1, "No puede estar vacío").trim()
 })
 
 export type LoginUser = z.infer<typeof loginUserSchema>

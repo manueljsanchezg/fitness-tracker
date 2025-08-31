@@ -9,18 +9,22 @@ import ProfileView from './views/general/ProfileView.vue'
 import UnauthorizedView from './views/general/UnauthorizedView.vue'
 import NotFoundView from './views/general/NotFoundView.vue'
 import UsersView from './views/admin/UsersView.vue'
-import ExercisesView from './views/admin/ExercisesView.vue'
+import ExercisesView from './views/general/ExercisesView.vue'
 import ExerciseCreateView from './views/admin/ExerciseCreateView.vue'
 import ExerciseUpdateView from './views/admin/ExerciseUpdateView.vue'
+import RoutinesCreateView from './views/user/RoutinesCreateView.vue'
+import RoutinesUpdateView from './views/user/RoutinesUpdateView.vue'
 
 const routes = [
   { path: '/home', component: HomeView },
   { path: '/login', component: LoginView, meta: { public: true } },
   { path: '/register', component: RegisterView, meta: { public: true } },
   { path: '/routines', component: RoutinesView, meta: { roles: ['user'] } },
+  { path: '/routines/create', component: RoutinesCreateView, meta: { roles: ['user'] } },
+  { path: '/routines/update/:id', component: RoutinesUpdateView, meta: { roles: ['user'] } },
   { path: '/my-profile', component: ProfileView },
   { path: '/users', component: UsersView, meta: { roles: ['admin'] } },
-  { path: '/exercises', component: ExercisesView, meta: { roles: ['admin'] } },
+  { path: '/exercises', component: ExercisesView },
   { path: '/exercises/create', component: ExerciseCreateView, meta: { roles: ['admin'] } },
   { path: '/exercises/update/:id', component: ExerciseUpdateView, meta: { roles: ['admin'] } },
   { path: '/forbidden', component: ForbiddenView, meta: { public: true } },

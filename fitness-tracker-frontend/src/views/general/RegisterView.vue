@@ -2,10 +2,10 @@
   <div class="register-wrapper">
     <form class="register-form" @submit.prevent="submitForm">
 
-      <h1>Register</h1>
+      <h1>Regístrate</h1>
 
       <b-field 
-      label="Name" 
+      label="Nombre" 
       :type="registerError.nameValid.length ? 'is-danger' : ''"
       :message="registerError.nameValid"
       >
@@ -13,7 +13,7 @@
       </b-field>
 
       <b-field 
-      label="Surname"
+      label="Apellido"
       :type="registerError.surnameValid.length ? 'is-danger' : ''"
       :message="registerError.surnameValid"
       >
@@ -29,7 +29,7 @@
       </b-field>
 
       <b-field 
-      label="Password" 
+      label="Controseña" 
       :type="registerError.passwordValid.length ? 'is-danger' : ''"
       :message="registerError.passwordValid"
       >
@@ -54,10 +54,10 @@ import { registerUser } from '../../api/auth'
 import { router } from '../../router'
 
 const registerUserSchema = z.object({
-  name: z.string().min(4, "Too short!").max(30, "Too long!").trim(),
-  surname: z.string().min(4, "Too short!").max(30, "Too long!").trim(),
-  email: z.email().max(100, "Too long!").trim(),
-  password: z.string().min(4, "Too short!").max(30, "Too long!").trim()
+  name: z.string().min(4, "Muy corto!").max(30, "Demasiado largo!").trim(),
+  surname: z.string().min(4, "Muy corto!").max(30, "Demasiado largo!").trim(),
+  email: z.email("Email inválido").max(100, "Muy corto!").trim(),
+  password: z.string().min(4, "Muy corto!").max(30, "Demasiado largo!").trim()
 })
 
 export type RegisterUser = z.infer<typeof registerUserSchema>

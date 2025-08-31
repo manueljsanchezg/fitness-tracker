@@ -10,10 +10,13 @@ export const getMyRoutines = async (request: FastifyRequest, reply: FastifyReply
         const { limit, skip } = getPaginate(request.query)
         
         const routines = await RoutineModel.find({ user: userId })
+            .populate("exercises.exercise", "name")
             .limit(Number(limit))
             .skip(Number(skip))
 
-        return reply.status(200).send(routines)
+        const totalRoutines = await RoutineModel.countDocuments()
+
+        return reply.status(200).send({ routines, totalRoutines })
     } catch (error) {
         return reply.status(500).send(error)
     }
@@ -25,6 +28,7 @@ export const getRoutine = async (request: FastifyRequest, reply: FastifyReply) =
         const { routineId } = request.params as { routineId: string }
 
         const routine = await RoutineModel.findById(routineId)
+                            .populate("exercises.exercise", "name")
 
         //if(!routine) return reply.status(404).send({ message: "Exercise not found"})
 

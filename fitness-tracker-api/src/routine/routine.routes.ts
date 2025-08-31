@@ -32,7 +32,7 @@ export async function routineRoutes(app: FastifyInstance) {
         {
             schema: updateRoutineSchema,
             preHandler: [
-                checkRole("admin"),
+                checkRole("user"),
                 checkEntiyExists(RoutineModel, "routineId"),
                 checkRoutineOwnership
             ]
@@ -43,7 +43,7 @@ export async function routineRoutes(app: FastifyInstance) {
         {
             schema: deleteRoutineSchema,
             preHandler: [
-                checkRole("admin"),
+                checkRole("user"),
                 checkEntiyExists(RoutineModel, "routineId"),
                 checkRoutineOwnership
             ]

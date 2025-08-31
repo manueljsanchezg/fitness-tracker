@@ -12,7 +12,7 @@ export const registerUser = async (data: RegisterUser) => {
             const status = error.response?.status
             switch (status) {
                 case 400:
-                    return { success: false, error: 'This email is already in use' }
+                    return { success: false, error: 'Email en uso' }
                 default:
                     return { success: false, error: 'Server error' }
             }
@@ -30,9 +30,9 @@ export const loginUser = async (data: LoginUser) => {
             const status = error.response?.status
             switch (status) {
                 case 404:
-                    return { success: false, error: 'User not found' }
+                    return { success: false, error: 'Usuario no encontrado' }
                 case 403:
-                    return { success: false, error: 'Wrong credentials' }
+                    return { success: false, error: 'Credenciales inválidas' }
                 default:
                     return { success: false, error: 'Server error' }
             }
