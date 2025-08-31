@@ -48,6 +48,7 @@ export const loginUser = async (request: FastifyRequest, reply: FastifyReply) =>
 
         const refreshToken = jwt.sign({ email: user.email, role: user.role }, String(SECRET_KEY), { expiresIn: "7d" })
 
+        await RefreshTokenModel.deleteMany({ userId: user._id })
         const newRefreshToken = new RefreshTokenModel({
             userId: user._id,
             token: refreshToken
@@ -60,9 +61,10 @@ export const loginUser = async (request: FastifyRequest, reply: FastifyReply) =>
             accessToken,
             {
                 httpOnly: true,
-                sameSite: "strict",
+                sameSite: "lax",
                 secure: false,
-                path: "/"
+                path: "/",
+                maxAge: 15 * 60
             }
         )
 
@@ -71,9 +73,10 @@ export const loginUser = async (request: FastifyRequest, reply: FastifyReply) =>
             refreshToken,
             {
                 httpOnly: true,
-                sameSite: "strict",
+                sameSite: "lax",
                 secure: false,
-                path: "/"
+                path: "/",
+                maxAge: 7 * 24 * 60 * 60
             }
         )
 
@@ -102,15 +105,15 @@ export const refreshToken = async (request: FastifyRequest, reply: FastifyReply)
             newAccessToken,
             {
                 httpOnly: true,
-                sameSite: "strict",
+                sameSite: "lax",
                 secure: false,
-                path: "/"
+                path: "/",
+                maxAge: 15 * 60
             }
         )
 
         return reply.status(200).send({ message: "Access token refreshed", email: user.email, role: user.role, expiresIn: 900 })
     } catch (err) {
-        await RefreshTokenModel.deleteOne({ token })
         return reply.status(401).send({ message: "Invalid refresh token" })
     }
 }

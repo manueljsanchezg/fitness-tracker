@@ -10,6 +10,7 @@ import { userRoutes } from "./user/user.routes"
 import { exerciseRoutes } from "./exercise/exercise.routes"
 import { routineRoutes } from "./routine/routine.routes"
 import { workOutLogRoutes } from "./workoutLog/workOutLog.routes"
+import fastifyRateLimit from "@fastify/rate-limit"
 
 export const app = fastify({ logger: true })
 
@@ -27,6 +28,17 @@ app.register(fastifyCors, {
   origin: "http://localhost:5173",
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]
+})
+
+app.register(fastifyRateLimit, {
+  max: 120,
+  timeWindow: '1 minute',
+  keyGenerator: (req) => req.ip,
+  errorResponseBuilder: (req, context) => ({
+    statusCode: 429,
+    error: 'Too Many Requests',
+    message: `Has superado ${context.max} solicitudes por ${context.after}.`
+  })
 })
 
 const publicRoutes = [
@@ -58,6 +70,8 @@ app.addHook("onRequest", async (request, reply) => {
     return reply.status(401).send({ message: "Unauthorized" })
   }
 })
+
+
 
 const GLOBAL_PREFIX = '/api/v1'
 

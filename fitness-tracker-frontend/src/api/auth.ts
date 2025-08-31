@@ -71,6 +71,8 @@ export const refreshToken = async () => {
             switch (status) {
                 case 401:
                     return { success: false, errorCode: 401, error: 'Invalid refresh token' }
+                case 429:
+                    return { success: false, errorCode: 429, error: 'Too many requests' }
                 default:
                     return { success: false, error: 'Server error' }
             }

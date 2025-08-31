@@ -4,23 +4,48 @@ import { loginUserSchema, registerUserSchema } from "./auth.schemas"
 
 export async function authRoutes(app: FastifyInstance) {
 
-    app.post('/register',
+    app.post(
+        '/register',
         {
-            schema: registerUserSchema
+            schema: registerUserSchema,
+            config: {
+                rateLimit: {
+                    max: 10,
+                    timeWindow: '1 minute'
+                }
+            }
         },
-        registerUser)
+        registerUser
+    )
 
-    app.post('/login',
+    app.post(
+        '/login',
         {
-            schema: loginUserSchema
+            schema: loginUserSchema,
+            config: {
+                rateLimit: {
+                    max: 10,
+                    timeWindow: '1 minute'
+                }
+            }
         },
-        loginUser)
+        loginUser
+    )
 
-    app.post('/refresh-token', refreshToken)
+    app.post(
+        '/refresh-token',
+        {
+            config: {
+                rateLimit: {
+                    max: 10,
+                    timeWindow: '1 minute'
+                }
+            }
+        },
+        refreshToken
+    )
 
     app.post('/validate', validateRequest)
 
-    app.get('/protected', async function name() {
-        return "hola"
-    })
+    app.get('/protected', async () => "hola")
 }

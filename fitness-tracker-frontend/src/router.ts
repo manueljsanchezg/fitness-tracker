@@ -1,4 +1,4 @@
-import { createMemoryHistory, createRouter } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import RegisterView from './views/general/RegisterView.vue'
 import LoginView from './views/general/LoginView.vue'
 import { validateRequest } from './api/auth'
@@ -17,6 +17,7 @@ import RoutinesUpdateView from './views/user/RoutinesUpdateView.vue'
 import WorkOutLogsView from './views/user/WorkOutLogsView.vue'
 import WorkOutLogsCreateView from './views/user/WorkOutLogsCreateView.vue'
 import WorkOutLogsUpdateView from './views/user/WorkOutLogsUpdateView.vue'
+import TooManyRequest from './views/general/TooManyRequest.vue'
 
 const routes = [
   { path: '/home', component: HomeView },
@@ -36,10 +37,11 @@ const routes = [
   { path: '/forbidden', component: ForbiddenView, meta: { public: true } },
   { path: '/unauthorized', component: UnauthorizedView, meta: { public: true } },
   { path: '/not-found', component: NotFoundView, meta: { public: true } },
+  { path: '/too-many-requests', component: TooManyRequest, meta: { public: true } },
 ]
 
 export const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 })
 

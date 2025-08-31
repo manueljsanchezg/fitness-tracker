@@ -35,11 +35,13 @@ const showSidebar = computed(() => {
 
 onMounted(async () => {
   try {
-    const { success, data } = await refreshToken()
+    const { success, data, errorCode } = await refreshToken()
     if (success && data?.expiresIn) {
-      authStore.email = data.user.email
-      authStore.role = data.user.role
+      authStore.email = data.email
+      authStore.role = data.role
       scheduleTokenRefresh(data.expiresIn)
+    } else if (errorCode === 429) {
+      router.push('/too-many-requests')
     } else {
       router.push('/login')
     }
