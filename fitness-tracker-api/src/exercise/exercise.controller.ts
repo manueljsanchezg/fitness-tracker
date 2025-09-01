@@ -7,7 +7,7 @@ export const getAllExercise = async (request: FastifyRequest, reply: FastifyRepl
     try {
         const { limit, skip } = getPaginate(request.query)
 
-        if (Number(limit) === 0 || Number(skip) === 0) {
+        if (Number(limit) === 0) {
              const exercises = await ExerciseModel.find()
 
             const totalExercises = await ExerciseModel.countDocuments()
@@ -67,7 +67,7 @@ export const updateExercise = async (request: FastifyRequest, reply: FastifyRepl
         const data: any = {}
 
         if (name) data.name = name
-        if (muscles_involved) data.exercises = muscles_involved
+        if (muscles_involved) data.muscles_involved = muscles_involved
 
         const exercise = await ExerciseModel.findByIdAndUpdate(exerciseId, data)
 
