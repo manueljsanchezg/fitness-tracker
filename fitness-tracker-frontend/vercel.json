@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/icons/(.*)", "destination": "/icons/$1" }, 
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
