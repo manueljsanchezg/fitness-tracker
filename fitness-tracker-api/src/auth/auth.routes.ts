@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
-import { loginUser, refreshToken, registerUser, validateRequest } from "./auth.controller"
+import { loginUser, logoutUser, refreshToken, registerUser, validateRequest } from "./auth.controller"
 import { loginUserSchema, registerUserSchema } from "./auth.schemas"
 
 export async function authRoutes(app: FastifyInstance) {
@@ -43,6 +43,11 @@ export async function authRoutes(app: FastifyInstance) {
             }
         },
         refreshToken
+    )
+
+    app.post(
+        '/logout',
+        logoutUser
     )
 
     app.post('/validate', validateRequest)

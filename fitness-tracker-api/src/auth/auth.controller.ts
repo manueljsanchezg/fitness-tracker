@@ -118,6 +118,23 @@ export const refreshToken = async (request: FastifyRequest, reply: FastifyReply)
     }
 }
 
+export const logoutUser = async (request: FastifyRequest, reply: FastifyReply) => {
+  try {
+    const refreshToken = request.cookies['refreshToken']
+
+    if (refreshToken) {
+      await RefreshTokenModel.deleteOne({ token: refreshToken })
+    }
+
+    reply.clearCookie('accessToken', { path: '/' })
+    reply.clearCookie('refreshToken', { path: '/' })
+
+    return reply.status(200).send({ message: 'User logged out successfully' })
+  } catch (error) {
+    return reply.status(500).send({ message: 'Server error', error })
+  }
+}
+
 export const validateRequest = async (request: FastifyRequest, reply: FastifyReply) => {
     try {
 

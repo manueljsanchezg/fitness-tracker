@@ -61,6 +61,15 @@
               label="Usuarios"
             />
           </b-menu-list>
+
+          <b-menu-list label="Cuenta">
+            <b-menu-item
+              tag="a"
+              icon="logout"
+              label="Cerrar sesión"
+              @click="handleLogout"
+              />
+          </b-menu-list>
           
         </b-menu>
       </div>
@@ -73,6 +82,8 @@
 import { useRoute } from 'vue-router';
 import { useAuthStore } from '../store/authStore';
 import { watch, } from 'vue';
+import { logoutUser } from '../api/auth';
+import { router } from '../router';
 
 
 const authStore = useAuthStore()
@@ -82,6 +93,16 @@ const route = useRoute()
 
 function closeModal() {
   isOpen.value = false
+}
+
+const handleLogout = async () => {
+  const result = await logoutUser()
+  if (result.success) {
+    authStore.logout()
+    router.push('/login')
+  } else {
+    console.error(result.error)
+  }
 }
 
 watch(

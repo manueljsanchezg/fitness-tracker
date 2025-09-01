@@ -40,6 +40,7 @@ onMounted(async () => {
       authStore.email = data.email
       authStore.role = data.role
       scheduleTokenRefresh(data.expiresIn)
+      router.push("/home")
     } else if (errorCode === 429) {
       router.push('/too-many-requests')
     } else {

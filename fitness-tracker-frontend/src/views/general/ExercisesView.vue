@@ -27,7 +27,7 @@
       </div>
     </div>
 
-    <div class="pagination">
+    <div class="pagination" v-if="totalExercises > 0">
       <b-button @click="prevPage" :disabled="page === 0">Prev</b-button>
       <span class="page-number">{{ page + 1 }} / {{ totalPages }}</span>
       <b-button @click="nextPage" :disabled="page === totalPages - 1">Next</b-button>

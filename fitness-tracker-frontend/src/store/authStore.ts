@@ -5,5 +5,10 @@ export const useAuthStore = defineStore('auth', () => {
     const email = ref<string>("")
     const role = ref<string>("")
 
-    return { email, role}
+    function logout() {
+        email.value = ""
+        role.value = ""
+  }
+
+    return { email, role, logout }
 })

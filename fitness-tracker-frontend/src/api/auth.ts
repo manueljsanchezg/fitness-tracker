@@ -80,3 +80,21 @@ export const refreshToken = async () => {
         return { success: false, error: 'Unexpected error' }
     }
 }
+
+export const logoutUser = async () => {
+    try {
+        const response = await server.post('/auth/logout')
+        return { success: true, data: response.data }
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const status = error.response?.status
+            switch (status) {
+                case 401:
+                    return { success: false, errorCode: 401, error: 'Unauthorized' }
+                default:
+                    return { success: false, error: 'Server error' }
+            }
+        }
+        return { success: false, error: 'Unexpected error' }
+    }
+}
