@@ -74,7 +74,7 @@ onMounted(async () => {
 }
 
 .profile-card {
-  background: #2c2c2c;         /* igual que exercise-card */
+  background: #2c2c2c;
   color: #f0f0f0;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);

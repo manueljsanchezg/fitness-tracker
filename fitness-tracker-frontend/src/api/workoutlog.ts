@@ -1,7 +1,6 @@
 
 import axios from "axios"
 import { server } from "./api"
-import type { Routine } from "../views/user/RoutinesCreateView.vue"
 import type { WorkoutLog } from "../views/user/WorkOutLogsCreateView.vue"
 
 export const getMyWorkOutLogs = async (limit: number, skip: number) => {
