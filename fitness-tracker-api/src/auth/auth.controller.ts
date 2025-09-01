@@ -62,7 +62,7 @@ export const loginUser = async (request: FastifyRequest, reply: FastifyReply) =>
             {
                 httpOnly: true,
                 sameSite: "none",
-                secure: false,
+                secure: true,
                 path: "/",
                 maxAge: 15 * 60
             }
@@ -74,7 +74,7 @@ export const loginUser = async (request: FastifyRequest, reply: FastifyReply) =>
             {
                 httpOnly: true,
                 sameSite: "none",
-                secure: false,
+                secure: true,
                 path: "/",
                 maxAge: 7 * 24 * 60 * 60
             }
@@ -106,7 +106,7 @@ export const refreshToken = async (request: FastifyRequest, reply: FastifyReply)
             {
                 httpOnly: true,
                 sameSite: "none",
-                secure: false,
+                secure: true,
                 path: "/",
                 maxAge: 15 * 60
             }
