@@ -36,7 +36,7 @@ interface ProfileData {
   email: string
 }
 
-const isLoading = ref<boolean>(true)
+const isLoading = ref(true)
 
 const profileData = ref<ProfileData>({
   name: "",
@@ -68,20 +68,20 @@ onMounted(async () => {
 
 <style scoped>
 .profile {
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
-  padding: 2em;
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
 
 .profile-card {
-  max-width: 500px;
-  width: 100%;
-  border-radius: 12px;
-  padding: 1rem;
-  background: #2c2c2c;
+  background: #2c2c2c;         /* igual que exercise-card */
   color: #f0f0f0;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
 .profile-info {
@@ -96,6 +96,7 @@ onMounted(async () => {
 }
 
 .label {
+  color: #f0f0f0; 
   font-weight: bold;
 }
 
@@ -105,7 +106,7 @@ onMounted(async () => {
 
 .loading {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin-top: 3rem;
 }
 
