@@ -2,10 +2,9 @@ import fastify, { FastifyReply, FastifyRequest } from "fastify"
 import fastifyJwt from "@fastify/jwt"
 import fastifyCookie from "@fastify/cookie"
 import fastifyCors from "@fastify/cors"
-import { SECRET_KEY } from "./config/env"
+import { SECRET_KEY, FRONTEND_ORIGIN } from "./config/env"
 import { authRoutes, } from "./auth/auth.routes"
 import { UserModel } from "./user/UserModel"
-import { Jwt } from "jsonwebtoken"
 import { userRoutes } from "./user/user.routes"
 import { exerciseRoutes } from "./exercise/exercise.routes"
 import { routineRoutes } from "./routine/routine.routes"
@@ -25,7 +24,7 @@ app.register(fastifyJwt, {
 })
 
 app.register(fastifyCors, {
-  origin: "http://localhost:5173",
+  origin: String(FRONTEND_ORIGIN),
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]
 })
