@@ -7,12 +7,21 @@ import { CreateRoutineDTO } from "./routine.dtos"
 export const getMyRoutines = async (request: FastifyRequest, reply: FastifyReply) => {
     try {
         const { userId } = request.user as { userId: Types.ObjectId }
-        const { limit, skip } = getPaginate(request.query)
+        const paginate = getPaginate(request.query)
+
+        if(!paginate) {
+            const routines = await RoutineModel.find({ user: userId })
+            .populate("exercises.exercise", "name")
+
+        const totalRoutines = await RoutineModel.countDocuments()
+
+        return reply.status(200).send({ routines, totalRoutines })
+        }
         
         const routines = await RoutineModel.find({ user: userId })
             .populate("exercises.exercise", "name")
-            .limit(Number(limit))
-            .skip(Number(skip))
+            .limit(paginate.limit)
+            .skip(paginate.skip)
 
         const totalRoutines = await RoutineModel.countDocuments()
 

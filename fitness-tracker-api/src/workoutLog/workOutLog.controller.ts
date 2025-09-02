@@ -7,12 +7,21 @@ import { Types } from "mongoose"
 
 export const getMyWorkOutLogs = async (request: FastifyRequest, reply: FastifyReply) => {
     try {
-        const { limit, skip } = getPaginate(request.query)
+        const paginate = getPaginate(request.query)
+
+        if(!paginate) {
+            const workOutLogs = await WorkoutLogModel.find()
+            .populate("exercise", "name")
+
+        const totalWorkOutLogs = await WorkoutLogModel.countDocuments()
+
+        return reply.status(200).send({ workOutLogs, totalWorkOutLogs })
+        }
         
         const workOutLogs = await WorkoutLogModel.find()
             .populate("exercise", "name")
-            .limit(Number(limit))
-            .skip(Number(skip))
+            .limit(paginate.limit)
+            .skip(paginate.skip)
 
         const totalWorkOutLogs = await WorkoutLogModel.countDocuments()
 

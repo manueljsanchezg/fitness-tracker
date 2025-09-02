@@ -22,11 +22,18 @@ export const getUserProfile = async (request: FastifyRequest, reply: FastifyRepl
 
 export const getAllUsers = async (request: FastifyRequest, reply: FastifyReply) => {
     try {
-        const { limit, skip } = getPaginate(request.query)
+        const paginate = getPaginate(request.query)
+
+        if(!paginate) {
+            const users = await UserModel.find({}, 'name surname email role')
+            const totalUsers = await UserModel.countDocuments()
+
+        return reply.status(200).send({ users, totalUsers})
+        }
         
         const users = await UserModel.find({}, 'name surname email role')
-            .limit(Number(limit))
-            .skip(Number(skip))
+            .limit(paginate.limit)
+            .skip(paginate.skip)
 
         const totalUsers = await UserModel.countDocuments()
 
