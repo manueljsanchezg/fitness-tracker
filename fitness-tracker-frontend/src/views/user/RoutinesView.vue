@@ -54,7 +54,7 @@ export interface Routine {
 
 const isLoading = ref(true)
 const routines = ref<Routine[]>([])
-const limit = ref(5)
+const limit = ref(10)
 const skip = ref(0)
 const page = ref(0)
 const totalRoutines = ref(0)

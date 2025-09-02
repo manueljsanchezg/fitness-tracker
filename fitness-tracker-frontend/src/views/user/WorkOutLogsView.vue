@@ -56,7 +56,7 @@ export interface WorkoutLog {
 
 const isLoading = ref(true)
 const workoutlogs = ref<WorkoutLog[]>([])
-const limit = ref(5)
+const limit = ref(10)
 const skip = ref(0)
 const page = ref(0)
 const totalWorkoutLogs = ref(0)

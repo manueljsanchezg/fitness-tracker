@@ -51,7 +51,7 @@ export interface Exercise {
 
 const isLoading = ref(true)
 const exercises = ref<Exercise[]>([])
-const limit = ref(5)
+const limit = ref(10)
 const skip = ref(0)
 const page = ref(0)
 const totalExercises = ref(0)

@@ -39,7 +39,7 @@ interface User {
 
 const isLoading = ref(true)
 const users = ref<User[]>([])
-const limit = ref(5)
+const limit = ref(10)
 const skip = ref(0)
 const page = ref(0)
 const totalUsers = ref(0)
