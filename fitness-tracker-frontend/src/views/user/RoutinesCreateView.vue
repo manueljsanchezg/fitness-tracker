@@ -96,6 +96,15 @@ const routineError = ref<RoutineError>({
 
 const disabledButton = computed(() => !routineSchema.safeParse(routineData.value).success)
 
+const filteredExercisesList = computed(() => {
+  return routineData.value.exercises.map((ex, _index) => {
+    const val = ex.name || ""
+    return exercises.value.filter(e =>
+      e.name.toLowerCase().includes(val.toLowerCase())
+    )
+  })
+})
+
 async function fetchExercises() {
     const { success, data, errorCode } = await getAllExercises()
     if (success) exercises.value = data.exercises
@@ -117,7 +126,7 @@ onMounted(async () => {
 
 watchEffect(() => {
   const result = routineSchema.safeParse(routineData.value)
-
+  console.log(filteredExercisesList.value)
   if (result.success) {
     routineError.value = { nameValid: [], exercisesValid: [], server: [] }
   } else {
@@ -135,14 +144,6 @@ function removeExercise(idx: number) {
     routineData.value.exercises.splice(idx, 1)
 }
 
-const filteredExercisesList = computed(() => {
-  return routineData.value.exercises.map((ex, _index) => {
-    const val = ex.name || ""
-    return exercises.value.filter(e =>
-      e.name.toLowerCase().includes(val.toLowerCase())
-    )
-  })
-})
 
 async function submitForm() {
     if (!routineSchema.safeParse(routineData.value).success) return

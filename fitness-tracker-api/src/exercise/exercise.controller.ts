@@ -5,9 +5,9 @@ import { CreateExerciseDTO } from "./exercise.dtos"
 
 export const getAllExercise = async (request: FastifyRequest, reply: FastifyReply) => {
     try {
-        const { limit, skip } = getPaginate(request.query)
+        const paginate = getPaginate(request.query)
 
-        if (Number(limit) === 0) {
+        if (!paginate) {
              const exercises = await ExerciseModel.find()
 
             const totalExercises = await ExerciseModel.countDocuments()
@@ -16,8 +16,8 @@ export const getAllExercise = async (request: FastifyRequest, reply: FastifyRepl
         }
 
         const exercises = await ExerciseModel.find()
-            .limit(Number(limit))
-            .skip(Number(skip))
+            .limit(paginate.limit)
+            .skip(paginate.skip)
 
         const totalExercises = await ExerciseModel.countDocuments()
 

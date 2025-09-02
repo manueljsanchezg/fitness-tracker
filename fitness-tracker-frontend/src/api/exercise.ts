@@ -3,7 +3,11 @@ import { server } from "./api"
 
 export const getAllExercises = async (limit?: number, skip?: number) => {
     try {
-        const response = await server.get(`/exercises?limit=${limit}&skip=${skip}`)
+        const params: any = {}
+        if (limit !== undefined) params.limit = limit
+        if (skip !== undefined) params.skip = skip
+
+        const response = await server.get(`/exercises`, { params })
         return { success: true, data: response.data }
     } catch (error) {
         if (axios.isAxiosError(error)) {
