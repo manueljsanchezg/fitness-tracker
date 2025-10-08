@@ -59,7 +59,7 @@ app.addHook("onRequest", async (request, reply) => {
 
     const user = await UserModel.findOne({ email: decoded.email })
 
-    if(!user) return reply.status(404).send({ message: "User not found" })
+    if (!user) return reply.status(404).send({ message: "User not found" })
 
     request.user = {
       userId: user.id,
@@ -73,6 +73,10 @@ app.addHook("onRequest", async (request, reply) => {
 
 
 const GLOBAL_PREFIX = '/api/v1'
+
+app.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {
+  reply.send('ok')
+})
 
 app.register(authRoutes, { prefix: `${GLOBAL_PREFIX}/auth` })
 app.register(userRoutes, { prefix: `${GLOBAL_PREFIX}/users` })
